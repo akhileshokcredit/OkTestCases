@@ -31,52 +31,18 @@ import util.OkUtil;
 public class TestRunnerAppium {
 
     private final static String appName = "test";
-    static final String CLIENT_PROPERTY = "client_property";
-    static final String TEST_SUITE = "test_suite";
-    static final String XPATH_PROPERTY = "xpath_property";
-    static final String TOOL = "tool";
 
-    private static OptionBuilder addOption(String opt, String desc, String argName) {
-        return OptionBuilder.withLongOpt(opt).withDescription(desc).hasArg().withArgName(argName);
-    }
 
     public static void main(String[] args) {
 
 
-      String testCaseFileName ="/src/main/java/testsuite/UITestCase.properties";
+    //  String testCaseFileName ="/src/main/java/testsuite/UITestCase.properties";
+        String testCaseFileName ="/src/main/java/testsuite/ApiTestCases.properties";
       String xpathFileName = "/src/main/java/config/WebAppXPATH.properties";
       String clientFileName = "/src/main/java/config/ClientAndroidPropertyWebApp.properties";
 
         String tool = "appium";
 
-        CommandLineParser cli = new DefaultParser();
-        Options options = new Options();
-
-        options.addOption(
-                addOption(CLIENT_PROPERTY.toLowerCase(), "ClientAndroidPropertyFile", CLIENT_PROPERTY).create());
-        options.addOption(addOption(TEST_SUITE.toLowerCase(), "TestSuiteFile", TEST_SUITE).create());
-        options.addOption(addOption(XPATH_PROPERTY.toLowerCase(), "XpathPropertyFile", XPATH_PROPERTY).create());
-        options.addOption(addOption(TOOL.toLowerCase(), "Tool Name", TOOL).create());
-
-        try {
-            CommandLine line = cli.parse(options, args);
-            if (line.hasOption(CLIENT_PROPERTY.toLowerCase())) {
-                clientFileName = line.getOptionValue(CLIENT_PROPERTY.toLowerCase());
-            }
-            if (line.hasOption(TEST_SUITE.toLowerCase())) {
-                testCaseFileName = line.getOptionValue(TEST_SUITE.toLowerCase());
-            }
-            if (line.hasOption(XPATH_PROPERTY.toLowerCase())) {
-                xpathFileName = line.getOptionValue(XPATH_PROPERTY.toLowerCase());
-            }
-            if (line.hasOption(TOOL.toLowerCase())) {
-                tool = line.getOptionValue(TOOL.toLowerCase());
-            }
-        } catch (Exception e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-            System.exit(1);
-        }
         TestContext testContext = new TestContext(xpathFileName, clientFileName);
         System.out.println(testContext.getClientProperties().getProperty(IClient.DEVICE_ENVIRONMENT));
 
