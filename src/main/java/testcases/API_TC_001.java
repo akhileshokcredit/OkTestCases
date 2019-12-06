@@ -43,10 +43,19 @@ public class API_TC_001 extends TestCase {
 		}
 
 		String otp="";
-		OkUtil.verifyOTP(testContext,otpId.toString(),otp);
-		String assertion="";
-		OkUtil.authenticateOTP(testContext,assertion);
+		apiResponse=OkUtil.verifyOTP(testContext,otpId.toString(),otp);
+		JsonNode assertion=null;
+		try {rootNode = objectMapper.readTree(apiResponse);
+		assertion=rootNode.getPath("assertion");
 
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		apiResponse=OkUtil.authenticateOTP(testContext,assertion.toString());
+
+
+		result.setStatus(true);
 		result.setExceptionList(exceptionList);
 		return result;
 
