@@ -53,8 +53,7 @@ public class API_TC_001 extends TestCase {
 		e.printStackTrace();
 	}
 		apiResponse=OkUtil.authenticateOTP(testContext,assertion.toString());
-
-
+		if(apiResponse.contains("200"))
 		result.setStatus(true);
 		result.setExceptionList(exceptionList);
 		return result;
